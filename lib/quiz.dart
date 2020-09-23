@@ -3,10 +3,14 @@ import './question.dart';
 import './answer.dart';
 
 class Quiz extends StatelessWidget {
-  // const Quiz({Key key}) : super(key: key);
+  // Accepting the questions, answerQuestions and questionIndex values (props in VUEJS)
   final List<Map<String, Object>> questions;
   final Function answerQuestion;
   final int questionIndex;
+  // Initializing the above values and making them required
+  // props:{
+  // questions:{ required:true }
+  // }
   Quiz(
       {@required this.questions,
       @required this.answerQuestion,
@@ -18,9 +22,10 @@ class Quiz extends StatelessWidget {
       child: Column(
         children: [
           Question(questions[questionIndex]['questionText']),
-          ...(questions[questionIndex]['answers'] as List<String>)
+          ...(questions[questionIndex]['answers'] as List<Map<String, Object>>)
               .map((answer) {
-            return Answer(answerQuestion, answer);
+            return Answer(
+                () => answerQuestion(answer['score']), answer['text']);
           }).toList()
         ],
       ),

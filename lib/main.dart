@@ -15,7 +15,9 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
-  void _answerQuestion() {
+  var _totalScore = 0;
+  void _answerQuestion(int score) {
+    _totalScore = _totalScore + score;
     setState(() {
       _questionIndex += 1;
     });
@@ -28,15 +30,27 @@ class _MyAppState extends State<MyApp> {
   static const _questions = [
     {
       'questionText': 'What\'s your favourite color?',
-      'answers': ['Black', 'Red', 'Green', 'White']
+      'answers': [
+        {'text': 'Blue', 'score': 1},
+        {'text': 'Green', 'score': 2},
+        {'text': 'Red', 'score': 3},
+      ]
     },
     {
       'questionText': 'what\'s your favourite animal?',
-      'answers': ['Dog', 'Cat', 'Elephant', 'Lion']
+      'answers': [
+        {'text': 'Dog', 'score': 1},
+        {'text': 'Mouse', 'score': 2},
+        {'text': 'Cat', 'score': 3}
+      ]
     },
     {
       'questionText': 'Who\'s your favourite football player?',
-      'answers': ['Ali', 'Max', 'Messi', 'Ronaldo']
+      'answers': [
+        {'text': 'Messi', 'score': 1},
+        {'text': 'Neymar', 'score': 2},
+        {'text': 'Ronaldo', 'score': 3}
+      ]
     },
   ];
   @override
@@ -52,7 +66,9 @@ class _MyAppState extends State<MyApp> {
                 questionIndex: _questionIndex,
                 questions: _questions,
               )
-            : Result(),
+            // Passing the answerQuestion, questionIndex and questions to the QUIZ Widget
+            // (Similar to passing props <quiz :questions="_questions" etc /> as in VUEJS ),
+            : Result(_totalScore),
       ),
     );
   }
