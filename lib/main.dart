@@ -16,6 +16,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
   var _totalScore = 0;
+
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
   void _answerQuestion(int score) {
     _totalScore = _totalScore + score;
     setState(() {
@@ -68,7 +76,9 @@ class _MyAppState extends State<MyApp> {
               )
             // Passing the answerQuestion, questionIndex and questions to the QUIZ Widget
             // (Similar to passing props <quiz :questions="_questions" etc /> as in VUEJS ),
-            : Result(_totalScore),
+            : Result(_totalScore, _resetQuiz),
+        // Second argument is passing a pointer to the method at top to the
+        // Result Widget to be called
       ),
     );
   }
